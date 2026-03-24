@@ -61,7 +61,7 @@ bool GameRunner::IsRunning()
 	return isRunning;
 }
 
-Point GameRunner::GetBuffer()
+GameState GameRunner::GetBuffer()
 {
-	return state.player;
+	return state;
 }

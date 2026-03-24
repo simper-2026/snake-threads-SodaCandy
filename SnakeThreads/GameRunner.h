@@ -18,5 +18,5 @@ public:
 	void Run();
 	void Quit();
 	bool IsRunning();
-	Point GetBuffer();
+	GameState GetBuffer();
 };
