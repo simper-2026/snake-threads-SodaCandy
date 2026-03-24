@@ -1,6 +1,8 @@
 #include "GameRunner.h"
 #include <iostream>
 #include <windows.h>
+#include <thread>
+#include <chrono>
 
 using namespace std;
 
@@ -32,6 +34,7 @@ GameRunner::GameRunner()
 {
 	playerDirection = Direction::RIGHT;
 	player = { 10, 0 };
+	isRunning = true;
 
 	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 	CONSOLE_CURSOR_INFO cursorInfo;
@@ -72,4 +75,22 @@ void GameRunner::Tick()
 void GameRunner::SetDirection(Direction d)
 {
 	playerDirection = d;
+}
+
+void GameRunner::Run()
+{
+	while (isRunning) {
+		Tick();
+		this_thread::sleep_for(chrono::milliseconds(200));
+	}
+}
+
+void GameRunner::Quit()
+{
+	isRunning = false;
+}
+
+bool GameRunner::IsRunning()
+{
+	return isRunning;
 }

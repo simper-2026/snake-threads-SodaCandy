@@ -12,14 +12,12 @@ int main() {
 	KeyboardInput input(&game);
 
 	thread inputThread(&KeyboardInput::Run, &input);
-		//input.CheckInput();
+	thread gameThread(&GameRunner::Run, &game);
 
 
 
-	while (true) {
-		game.Tick();
-		this_thread::sleep_for(chrono::milliseconds(200));
-	}
+	
 
 	inputThread.join();
+	gameThread.join();
 }
