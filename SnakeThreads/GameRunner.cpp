@@ -4,17 +4,11 @@
 
 using namespace std;
 
-void GameRunner::DrawBoard()
-{
-
-}
 GameRunner::GameRunner()
 {
 	playerDirection = Direction::RIGHT;
-	player = { 10, 0 };
 	isRunning = true;
 
-	
 }
 
 void GameRunner::Tick()
@@ -25,16 +19,16 @@ void GameRunner::Tick()
 	switch (playerDirection)
 	{
 	case Direction::UP:
-		player.X--;
+		state.player.X--;
 		break;
 	case Direction::DOWN:
-		player.X++;
+		state.player.X++;
 		break;
 	case Direction::LEFT:
-		player.Y--;
+		state.player.Y--;
 		break;
 	case Direction::RIGHT:
-		player.Y++;
+		state.player.Y++;
 		break;
 
 	case Direction::NONE:
@@ -42,8 +36,6 @@ void GameRunner::Tick()
 
 		break;
 	}
-
-	DrawBoard();
 }
 
 void GameRunner::SetDirection(Direction d)
@@ -71,5 +63,5 @@ bool GameRunner::IsRunning()
 
 Point GameRunner::GetBuffer()
 {
-	return player;
+	return state.player;
 }
