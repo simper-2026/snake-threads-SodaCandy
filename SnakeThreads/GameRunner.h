@@ -8,9 +8,14 @@
 class GameRunner
 {
 private:
-	std::atomic<Direction> playerDirection;
-	GameState state;
 	std::atomic<bool> isRunning;
+
+	std::atomic<Direction> playerDirection;
+	GameState buffer[2];
+	GameState* current;
+	GameState* next;
+
+	void SwapBuffer();
 public:
 	GameRunner();
 	void Tick();
@@ -18,5 +23,5 @@ public:
 	void Run();
 	void Quit();
 	bool IsRunning();
-	GameState GetBuffer();
+	GameState* GetBuffer();
 };

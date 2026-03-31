@@ -6,7 +6,14 @@ GameState::GameState()
     boardSize = 20;
 }
 
+GameState::GameState(const GameState& other) 
+{
+    player = other.player;
+    boardSize = other.boardSize;
+}
+
 int GameState::GetBoardSize()
 {
     return boardSize;
 }
+

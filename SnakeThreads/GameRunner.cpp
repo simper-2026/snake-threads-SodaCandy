@@ -4,31 +4,44 @@
 
 using namespace std;
 
+void GameRunner::SwapBuffer()
+{
+	GameState* temp = current;
+	current = next;
+	next = temp;
+}
+
 GameRunner::GameRunner()
 {
 	playerDirection = Direction::RIGHT;
 	isRunning = true;
+	
+	buffer[0] = GameState{};
+	buffer[1] = GameState{};
 
+	current = &buffer[0];
+	next = &buffer[1];
 }
 
 void GameRunner::Tick()
 {
 
 	//cout << playerDirection << endl;
+	*next = *current;
 
 	switch (playerDirection)
 	{
 	case Direction::UP:
-		state.player.X--;
+		next->player.X--;
 		break;
 	case Direction::DOWN:
-		state.player.X++;
+		next->player.X++;
 		break;
 	case Direction::LEFT:
-		state.player.Y--;
+		next->player.Y--;
 		break;
 	case Direction::RIGHT:
-		state.player.Y++;
+		next->player.Y++;
 		break;
 
 	case Direction::NONE:
@@ -36,6 +49,7 @@ void GameRunner::Tick()
 
 		break;
 	}
+	SwapBuffer();
 }
 
 void GameRunner::SetDirection(Direction d)
@@ -61,7 +75,7 @@ bool GameRunner::IsRunning()
 	return isRunning;
 }
 
-GameState GameRunner::GetBuffer()
+GameState* GameRunner::GetBuffer()
 {
-	return state;
+	return current;
 }
